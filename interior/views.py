@@ -1,16 +1,20 @@
-from django.shortcuts import render
-from django.template.context_processors import request
+from django.shortcuts import render, redirect
 
+from .forms import RegisterForm
+from django.urls import reverse_lazy
+from django.views import generic
+from django.contrib.auth import logout
 
 # Create your views here.
 
 def index(request):
     return render(request, 'index.html')
 
-def register(request):
-    return render(request, 'register.html')
+class Register(generic.CreateView):
+    template_name = 'registration/register.html'
+    form_class = RegisterForm
+    success_url = reverse_lazy('login')
 
 def logout_view(request):
-    return render(request, 'logout.html')
-
-
+    logout(request)
+    return redirect('index')
