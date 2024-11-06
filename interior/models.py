@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
-    FIO = models.CharField(max_length=255, verbose_name='ФИО')
+    fio = models.CharField(max_length=255, verbose_name='ФИО')
     username = models.CharField(max_length=255, verbose_name='Логин', unique=True, blank=False)
     email = models.EmailField(max_length=255, verbose_name='Почта')
     password = models.CharField(max_length=255, verbose_name='Пароль', blank=False)
