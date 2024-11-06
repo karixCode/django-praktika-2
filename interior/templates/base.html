@@ -1,0 +1,31 @@
+{% load static %}
+{% load bootstrap4 %}
+
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} Главная {% endblock %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <div class="d-flex align-items-center justify-content-between p-3">
+        <a class="text-decoration-none fs-2" href="{% url 'index' %}">Design.pro</a>
+        <nav class="d-flex align-items-center gap-4">
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary" href="">Выход</a>
+            {% else %}
+                <a class="btn btn-primary" href="">Вход</a>
+                <a class="btn btn-primary" href="">Регистрация</a>
+            {% endif %}
+        </nav>
+    </div>
+    <main class="container mt-4">
+        <div>
+            {% block content %} {% endblock %}
+        </div>
+    </main>
+</body>
+</html>
