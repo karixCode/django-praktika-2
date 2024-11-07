@@ -137,7 +137,7 @@ CAPTCHA_LENGTH = 6
 import random
 def russian_captcha_challenge():
     ret = u''
-    russian_alphabet = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
+    russian_alphabet = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя0123456789')
 
     for i in range(6):
         ret += (random.choice(russian_alphabet))
