@@ -1,11 +1,12 @@
 from django import forms
 from django.core.exceptions import ValidationError
-
+from captcha.fields import CaptchaField
 from .models import User
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput)
+    captcha = CaptchaField(label='Введите символы с картинки')
 
     def clean(self):
         super().clean()

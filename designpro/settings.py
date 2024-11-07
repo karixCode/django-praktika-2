@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'interior.apps.InteriorConfig',
-    'bootstrap4'
+    'bootstrap4',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,19 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'interior.User'
+
+CAPTCHA_LENGTH = 6
+
+import random
+def russian_captcha_challenge():
+    ret = u''
+    russian_alphabet = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
+
+    for i in range(6):
+        ret += (random.choice(russian_alphabet))
+
+    return ret, ret
+
+CAPTCHA_CHALLENGE_FUNCT = 'designpro.settings.russian_captcha_challenge'
+CAPTCHA_FONT_PATH = 'designpro/fonts/arial.ttf'
+CAPTCHA_FONT_SIZE = 32
