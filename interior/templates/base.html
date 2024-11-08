@@ -18,7 +18,7 @@
                 {% if user.is_superuser %}
                 <a class="btn btn-primary mr-3" href="http://127.0.0.1:8000/admin/">Админка</a>
                 {% else %}
-                <a class="btn btn-primary mr-3" href="{% url 'profile' %}">Профиль</a>
+                <a class="btn btn-primary mr-3" href="{% url 'profile' user.id %}">Профиль</a>
                 {% endif %}
                 <a class="btn btn-primary" href="{% url 'logout' %}">Выход</a>
             {% else %}

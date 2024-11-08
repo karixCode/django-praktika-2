@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Мои заявки</h2>
+
+    {% if requests %}
+        <div class="list-group">
+            {% for request in requests %}
+                <div class="list-group-item">
+                    <h5 class="mb-1">{{ request.title }}</h5>
+                    <p class="mb-1">{{ request.description|truncatewords:20 }}</p>
+                    <small>Категория: {{ request.category.name }}</small><br>
+                    <small>Статус: 
+                        {% if request.status == 'new' %}
+                            <span class="badge badge-primary">Новая</span>
+                        {% elif request.status == 'in_progress' %}
+                            <span class="badge badge-warning">Принято в работу</span>
+                        {% else %}
+                            <span class="badge badge-success">Выполнено</span>
+                        {% endif %}
+                    </small><br>
+                    <a href="" class="btn btn-danger btn-sm mt-2">Удалить</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">У вас нет заявок.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

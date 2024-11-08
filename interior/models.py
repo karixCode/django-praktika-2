@@ -27,8 +27,9 @@ class Request(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название')
     description = models.TextField(max_length=1000, verbose_name='Описание')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
     design_image = models.ImageField(upload_to='interior/design', verbose_name='Фото')
-    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     STATUS_CHOICES = (
         ('new', 'Новая'),

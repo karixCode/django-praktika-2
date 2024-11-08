@@ -4,14 +4,19 @@ from django.shortcuts import render, redirect
 
 from .forms import RegisterForm
 from django.urls import reverse_lazy
-from django.views import generic
 from django.contrib.auth import logout
-from django.views.generic.edit import CreateView, DeleteView
-
-# Create your views here.
+from django.views import generic
+from .models import User, Request
+from django.shortcuts import render
 
 def index(request):
-    return render(request, 'index.html')
+    completed_requests = Request.objects.filter(status="completed").order_by('-timestamp')[:4]
+
+    context = {
+        'completed_requests': completed_requests,
+    }
+
+    return render(request, 'index.html', context)
 
 class Register(generic.CreateView):
     template_name = 'registration/register.html'
@@ -25,10 +30,11 @@ def logout_view(request):
 def profile(request):
     return render(request, 'interior/profile.html')
 
-class AuthorCreate(CreateView):
-    model = Request
-    fields = ['title', 'description', 'category', 'design_image']
+def user_requests(request, user_id):
+    user = request.user
+    requests = Request.objects.filter(user=user).order_by('-id')
+    return render(request, 'interior/user_requests.html', {'requests': requests})
 
-class AuthorDelete(DeleteView):
-    model = Request
-    success_url = reverse_lazy('profile')
+class Profile(generic.DetailView):
+    model = User
+    template_name = 'interior/profile.html'
