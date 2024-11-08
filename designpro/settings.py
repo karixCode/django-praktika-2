@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 from django.conf.global_settings import AUTH_USER_MODEL
@@ -147,3 +147,7 @@ def russian_captcha_challenge():
 CAPTCHA_CHALLENGE_FUNCT = 'designpro.settings.russian_captcha_challenge'
 CAPTCHA_FONT_PATH = 'designpro/fonts/arial.ttf'
 CAPTCHA_FONT_SIZE = 32
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
