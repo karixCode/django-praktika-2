@@ -1,8 +1,9 @@
 from urllib.request import Request
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
-from .forms import RegisterForm
+from .forms import RegisterForm, RequestForm
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
 from django.views import generic
@@ -38,3 +39,20 @@ def user_requests(request, user_id):
 class Profile(generic.DetailView):
     model = User
     template_name = 'interior/profile.html'
+
+class RequestCreate(LoginRequiredMixin, generic.CreateView):
+    model = Request
+    form_class = RequestForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'pk': self.request.user.pk})
+
+class RequestDelete(generic.DeleteView):
+    model = Request
+
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'pk': self.request.user.pk})

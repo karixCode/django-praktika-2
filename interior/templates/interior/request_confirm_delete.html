@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Удаление заявки</h1>
+
+  <p>Вы действительно хотите удалить заявку: <strong>{{ request }}</strong>?</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <button class="btn btn-danger">Удалить</button>
+    <a href="{% url 'profile-requests' user.id %}" class="btn btn-secondary">Отмена</a>
+  </form>
+{% endblock %}

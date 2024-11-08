@@ -9,4 +9,6 @@ urlpatterns = [
     path('register/', views.Register.as_view(), name='register'),
     path('profile/<int:pk>', views.Profile.as_view(), name='profile'),
     path('user/<int:user_id>/requests/', views.user_requests, name='profile-requests'),
+    path('request/create/', views.RequestCreate.as_view(), name='request-create'),
+    path('request/<int:pk>/delete/', views.RequestDelete.as_view(), name='request-delete'),
 ]

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'interior.apps.InteriorConfig',
     'bootstrap4',
     'captcha',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [

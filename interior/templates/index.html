@@ -14,7 +14,7 @@
                             <div>
                                 <strong>{{ request.title }}</strong>
                                 <p class="mb-1">{{ request.category }}</p>
-                                <small class="text-muted">{{ request.timestamp }}</small>
+                                <small class="text-muted">{{ request.timestamp|date:"d.m.Y H:i" }}</small>
                             </div>
                             <div>
                                 <img src="{{ request.design_image.url }}" alt="Фото" class="img-thumbnail" style="width: 200px; height: auto;">

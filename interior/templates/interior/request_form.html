@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
 <div class="container mt-5">
@@ -10,7 +11,7 @@
 
                 <div class="form-group">
                     <label for="id_title">{{ form.title.label }}</label>
-                    <input type="text" name="{{ form.title.name }}" id="id_title" class="form-control" value="{{ form.title.value|default_if_none:'' }}">
+                    {{ form.title|add_class:"form-control" }}
                     {% if form.title.errors %}
                         <div class="text-danger small">{{ form.title.errors.0 }}</div>
                     {% endif %}
@@ -18,7 +19,7 @@
 
                 <div class="form-group">
                     <label for="id_description">{{ form.description.label }}</label>
-                    <textarea name="{{ form.description.name }}" id="id_description" class="form-control" rows="4">{{ form.description.value|default_if_none:'' }}</textarea>
+                    {{ form.description|add_class:"form-control" }}
                     {% if form.description.errors %}
                         <div class="text-danger small">{{ form.description.errors.0 }}</div>
                     {% endif %}
@@ -26,12 +27,7 @@
 
                 <div class="form-group">
                     <label for="id_category">{{ form.category.label }}</label>
-                    <select name="{{ form.category.name }}" id="id_category" class="form-control">
-                        <option value="">Выберите категорию</option>
-                        {% for choice in form.category.field.queryset %}
-                            <option value="{{ choice.id }}" {% if choice.id == form.category.value %}selected{% endif %}>{{ choice.name }}</option>
-                        {% endfor %}
-                    </select>
+                    {{ form.category|add_class:"form-control" }}
                     {% if form.category.errors %}
                         <div class="text-danger small">{{ form.category.errors.0 }}</div>
                     {% endif %}
@@ -39,7 +35,7 @@
 
                 <div class="form-group">
                     <label for="id_design_image">{{ form.design_image.label }}</label>
-                    <input type="file" name="{{ form.design_image.name }}" id="id_design_image" class="form-control-file">
+                    {{ form.design_image|add_class:"form-control-file" }}
                     {% if form.design_image.errors %}
                         <div class="text-danger small">{{ form.design_image.errors.0 }}</div>
                     {% endif %}

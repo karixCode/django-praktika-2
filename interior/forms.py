@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from captcha.fields import CaptchaField
-from .models import User, Request, Category
+from .models import User
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
@@ -25,3 +25,29 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('name', 'surname', 'patronymic','username', 'email')
+
+class RequestForm(forms.ModelForm):
+    title = forms.CharField(
+        label="Название заявки",
+        max_length=200,
+    )
+
+    description = forms.CharField(
+        label="Описание",
+        widget=forms.Textarea,
+    )
+
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.Select,
+        label="Категория",
+        help_text="Выберите категорию."
+    )
+
+    design_image = forms.ImageField(
+        label="Загрузить изображение",
+    )
+
+    class Meta:
+        model = Request
+        fields = ['title', 'description', 'category', 'design_image']
