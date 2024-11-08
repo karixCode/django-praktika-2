@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Профиль пользователя</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h4 class="card-title">{{ user.name }} {{ user.surname }}</h4>
+            <p class="card-text">{{ user.username }}</p>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Имя:</dt>
+                <dd class="col-sm-9">{{ user.name }}</dd>
+
+                <dt class="col-sm-3">Фамилия:</dt>
+                <dd class="col-sm-9">{{ user.surname }}</dd>
+
+                <dt class="col-sm-3">Отчество:</dt>
+                <dd class="col-sm-9">{{ user.patronymic|default:"Не указано" }}</dd>
+
+                <dt class="col-sm-3">Логин:</dt>
+                <dd class="col-sm-9">{{ user.username }}</dd>
+
+                <dt class="col-sm-3">Электронная почта:</dt>
+                <dd class="col-sm-9">{{ user.email }}</dd>
+            </dl>
+        </div>
+        <div class="card-footer text-center">
+            <a href="" class="btn btn-primary">Мои заявки</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

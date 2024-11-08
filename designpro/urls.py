@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/interior/', permanent=True)),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('interior/', include('interior.urls')),
     path('captcha/', include('captcha.urls')),
 ]
