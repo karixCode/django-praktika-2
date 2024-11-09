@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+
+from django.conf.global_settings import AUTH_USER_MODEL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'interior.apps.InteriorConfig',
+    'bootstrap4',
+    'captcha',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
@@ -103,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -121,3 +127,28 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = 'interior.User'
+
+CAPTCHA_LENGTH = 6
+
+import random
+def russian_captcha_challenge():
+    ret = u''
+    russian_alphabet = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя0123456789')
+
+    for i in range(6):
+        ret += (random.choice(russian_alphabet))
+
+    return ret, ret
+
+CAPTCHA_CHALLENGE_FUNCT = 'designpro.settings.russian_captcha_challenge'
+CAPTCHA_FONT_PATH = 'designpro/fonts/arial.ttf'
+CAPTCHA_FONT_SIZE = 32
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+

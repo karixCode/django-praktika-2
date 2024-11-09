@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% if user_requests_count > 3 %}
+                <h2 class="text-center">У вас слишком много заявок</h2>
+                <p class="m-auto text-center">Максимальное количество: 3</p>
+            {% else %}
+            <h2 class="mb-4 text-center">Создание заявки</h2>
+            <form method="post" enctype="multipart/form-data" class="border p-4 rounded shadow-sm bg-light">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_title">{{ form.title.label }}</label>
+                    {{ form.title|add_class:"form-control" }}
+                    {% if form.title.errors %}
+                        <div class="text-danger small">{{ form.title.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_description">{{ form.description.label }}</label>
+                    {{ form.description|add_class:"form-control" }}
+                    {% if form.description.errors %}
+                        <div class="text-danger small">{{ form.description.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_category">{{ form.category.label }}</label>
+                    {{ form.category|add_class:"form-control" }}
+                    {% if form.category.errors %}
+                        <div class="text-danger small">{{ form.category.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_design_image">{{ form.design_image.label }}</label>
+                    {{ form.design_image|add_class:"form-control-file" }}
+                    {% if form.design_image.errors %}
+                        <div class="text-danger small">{{ form.design_image.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">Создать заявку</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

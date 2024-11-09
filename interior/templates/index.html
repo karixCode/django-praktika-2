@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Добро пожаловать!</h2>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h3>Последние выполненные заявки</h3>
+            <ul class="list-group mb-4">
+                {% for request in completed_requests %}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <strong>{{ request.title }}</strong>
+                                <p class="mb-1">{{ request.category }}</p>
+                                <small class="text-muted">{{ request.timestamp|date:"d.m.Y H:i" }}</small>
+                            </div>
+                            <div>
+                                <img src="{{ request.design_image.url }}" alt="Фото" class="img-thumbnail" style="width: 200px; height: auto;">
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

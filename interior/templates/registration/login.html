@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if user.is_authenticated %}
+        <h1 class="text-center text-success">Вы уже вошли</h1>
+    {% else %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="mb-4 text-center">Вход</h2>
+                <form method="post" enctype="multipart/form-data" class="border p-4 rounded shadow-sm bg-light">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {% if form.errors %}
+                            <div class="text-danger mt-4 text-center">Вы ввели неверные данные</div>
+                        {% endif %}
+                        <label for="id_username">{{ form.username.label }}</label>
+                        {{ form.username|add_class:"form-control" }}
+                        {% if form.username.errors %}
+                            <div class="text-danger small">{{ form.username.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_password">{{ form.password.label }}</label>
+                        {{ form.password|add_class:"form-control" }}
+                        {% if form.password.errors %}
+                            <div class="text-danger small">{{ form.password.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Войти</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
