@@ -40,6 +40,12 @@ class Profile(generic.DetailView):
     model = User
     template_name = 'interior/profile.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_requests_count = Request.objects.filter(user=self.object).count()
+        context['user_requests_count'] = user_requests_count
+        return context
+
 class RequestCreate(LoginRequiredMixin, generic.CreateView):
     model = Request
     form_class = RequestForm
@@ -50,6 +56,12 @@ class RequestCreate(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         return reverse_lazy('profile', kwargs={'pk': self.request.user.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_requests_count = Request.objects.filter(user=self.object).count()
+        context['user_requests_count'] = user_requests_count
+        return context
 
 class RequestDelete(generic.DeleteView):
     model = Request

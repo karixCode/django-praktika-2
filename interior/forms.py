@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from captcha.fields import CaptchaField
 from .models import User, Request, Category
 
-
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput)

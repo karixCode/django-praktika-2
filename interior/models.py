@@ -1,5 +1,3 @@
-from enum import unique
-
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -22,20 +20,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-
-def validate_image(image):
-    # Проверка MIME type файла
-    valid_mime_types = ['image/jpeg', 'image/png', 'image/bmp']
-    mime_type = image.file.content_type
-    if mime_type not in valid_mime_types:
-        raise ValidationError("Формат файла должен быть: jpg, jpeg, png, bmp.")
-
-    # Проверка размера файла
-    file_size = image.size
-    limit_mb = 2
-    if file_size > limit_mb * 1024 * 1024:
-        raise ValidationError("Размер файла не должен превышать 2 МБ.")
 
 class Request(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название')

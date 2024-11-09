@@ -30,7 +30,9 @@
         </div>
         <div class="card-footer text-center">
             <a href="{% url 'profile-requests' user.id %}" class="btn btn-primary">Мои заявки</a>
-            <a href="{% url 'request-create' %}" class="btn btn-primary">Создать заявку</a>
+            {% if user_requests_count <= 3 %}
+                <a href="{% url 'request-create' %}" class="btn btn-primary">Создать заявку</a>
+            {% endif %}
         </div>
     </div>
 </div>
