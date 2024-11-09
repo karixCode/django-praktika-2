@@ -24,7 +24,7 @@ class Category(models.Model):
 class Request(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название')
     description = models.TextField(max_length=1000, verbose_name='Описание')
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, help_text='Выберите категорию')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -48,6 +48,8 @@ class Request(models.Model):
     )
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
+    comment = models.TextField(null=True, blank=True, verbose_name="Комментарий")
+    final_image = models.ImageField(upload_to='interior/design',validators=[validate_image], verbose_name='Финальное фото', null=True, blank=True)
 
     def __str__(self):
         return self.title
