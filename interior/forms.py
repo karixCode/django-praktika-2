@@ -41,7 +41,7 @@ class RequestForm(forms.ModelForm):
         queryset=Category.objects.all(),
         widget=forms.Select,
         label="Категория",
-        help_text="Выберите категорию."
+        empty_label="-Выберите категорию-"
     )
 
     design_image = forms.ImageField(

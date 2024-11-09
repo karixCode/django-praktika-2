@@ -30,8 +30,8 @@ class Request(models.Model):
 
     def validate_image(image):
         valid_mime_types = ['image/jpeg', 'image/png', 'image/bmp']
-        mime_type = image.file.content_type
-        if mime_type not in valid_mime_types:
+        mime_type = getattr(image.file, 'content_type', None)
+        if mime_type and mime_type not in valid_mime_types:
             raise ValidationError("Формат файла должен быть: jpg, jpeg, png, bmp.")
 
         file_size = image.size

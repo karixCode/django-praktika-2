@@ -16,7 +16,7 @@
         <nav class="d-flex align-items-center gap-4">
             {% if user.is_authenticated %}
                 {% if user.is_superuser %}
-                <a class="btn btn-primary mr-3" href="http://127.0.0.1:8000/admin/">Админка</a>
+                <a class="btn btn-primary mr-3" href='{% url 'admin:index' %}'>Админка</a>
                 {% else %}
                 <a class="btn btn-primary mr-3" href="{% url 'profile' user.id %}">Профиль</a>
                 {% endif %}
