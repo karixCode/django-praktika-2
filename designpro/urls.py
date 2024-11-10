@@ -4,7 +4,6 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path('', RedirectView.as_view(url='/interior/', permanent=True)),
     path('superadmin/', admin.site.urls, name='admin'),

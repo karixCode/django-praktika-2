@@ -5,7 +5,7 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            {% if user_requests_count > 3 %}
+            {% if user_requests_new_count >= 3 %}
                 <h2 class="text-center">У вас слишком много заявок</h2>
                 <p class="m-auto text-center">Максимальное количество: 3</p>
             {% else %}

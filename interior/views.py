@@ -42,8 +42,8 @@ class Profile(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_requests_count = Request.objects.filter(user=self.object).count()
-        context['user_requests_count'] = user_requests_count
+        user_requests_new_count = Request.objects.filter(user=self.request.user, status='new').count()
+        context['user_requests_new_count'] = user_requests_new_count
         return context
 
 class RequestCreate(LoginRequiredMixin, generic.CreateView):
@@ -59,8 +59,8 @@ class RequestCreate(LoginRequiredMixin, generic.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_requests_count = Request.objects.filter(user=self.object).count()
-        context['user_requests_count'] = user_requests_count
+        user_requests_new_count = Request.objects.filter(user=self.request.user, status='new').count()
+        context['user_requests_count'] = user_requests_new_count
         return context
 
 class RequestDelete(generic.DeleteView):

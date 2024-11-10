@@ -8,20 +8,32 @@
     {% if requests %}
         <div class="list-group">
             {% for request in requests %}
-                <div class="list-group-item">
-                    <h5 class="mb-1">{{ request.title }}</h5>
-                    <p class="mb-1">{{ request.description|truncatewords:20 }}</p>
-                    <small>Категория: {{ request.category.name }}</small><br>
-                    <small>Статус: 
+                <div class="list-group-item d-flex justify-content-between">
+                    <div class="w-50">
+                        <h5 class="mb-1">{{ request.title }}</h5>
+                        <p class="mb-1">{{ request.description|truncatewords:20 }}</p>
+                        <small>Категория: {{ request.category.name }}</small><br>
+                        <small>Статус:
+                            {% if request.status == 'new' %}
+                                <span class="badge badge-primary">Новая</span>
+                            {% elif request.status == 'in_progress' %}
+                                <span class="badge badge-warning">Принято в работу</span>
+                            {% else %}
+                                <span class="badge badge-success">Выполнено</span>
+                            {% endif %}
+                        </small><br>
                         {% if request.status == 'new' %}
-                            <span class="badge badge-primary">Новая</span>
-                        {% elif request.status == 'in_progress' %}
-                            <span class="badge badge-warning">Принято в работу</span>
-                        {% else %}
-                            <span class="badge badge-success">Выполнено</span>
+                            <a href="{% url 'request-delete' request.id %}" class="btn btn-danger btn-sm mt-3">Удалить</a>
                         {% endif %}
-                    </small><br>
-                    <a href="{% url 'request-delete' request.id %}" class="btn btn-danger btn-sm mt-2">Удалить</a>
+                    </div>
+                    <div class="position-relative mt-3 w-25">
+                        <img src="{{ request.design_image.url }}"
+                             class="img-fluid design-image-overlay {% if request.status == 'completed' and request.final_image %} hide-on-hover {% endif %}"
+                             alt="Design Image">
+                        {% if request.status == 'completed' and request.final_image %}
+                            <img src="{{ request.final_image.url }}" class="img-fluid final-image-overlay" alt="Final Image">
+                        {% endif %}
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -29,5 +41,33 @@
         <p class="text-center">У вас нет заявок.</p>
     {% endif %}
 </div>
+
+<style>
+    .design-image-overlay {
+        position: relative;
+        z-index: 10;
+        transition: transform 0.6s, z-index 0s 0.6s;
+    }
+
+    .final-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        z-index: 5;
+        transition: opacity 0.6s;
+        border-radius: 10px;
+    }
+
+    .position-relative:hover .final-image-overlay {
+        opacity: 1;
+    }
+
+    .position-relative:hover .hide-on-hover {
+        transform: translateX(calc(-100% - 10px));
+        z-index: 0;
+    }
+</style>
 
 {% endblock %}
